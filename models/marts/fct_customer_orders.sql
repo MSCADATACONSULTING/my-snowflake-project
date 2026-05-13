@@ -5,6 +5,7 @@ with customer_sales as (
         c.country,
         count(o.order_id) as total_orders,
         sum(o.order_amount) as total_sales
+        
     from {{ ref('stg_customers') }} c
     left join {{ ref('stg_orders') }} o
         on c.customer_id = o.customer_id
@@ -16,5 +17,6 @@ with customer_sales as (
 
 select
     *,
-    {{ audit_timestamp() }} as created_at
+    {{ audit_timestamp() }} as created_at,
+    1 AS TEST
 from customer_sales

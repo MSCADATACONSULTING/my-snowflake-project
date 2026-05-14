@@ -18,5 +18,5 @@ with customer_sales as (
 select
     *,
     {{ audit_timestamp() }} as created_at,
-    1 AS TEST
+   'Resolved_Value' as customer_name
 from customer_sales

@@ -1,0 +1,81 @@
+version: 2
+
+models:
+
+  # =========================
+  # FACT TABLE
+  # =========================
+  - name: fct_portfolio_exposure
+    description: "Fact table containing portfolio exposure values by security and date."
+
+    columns:
+
+      - name: portfolio_id
+        description: "Unique identifier for the portfolio."
+        tests:
+          - not_null
+
+      - name: security_id
+        description: "Unique identifier for the security."
+        tests:
+          - not_null
+
+      - name: as_of_date
+        description: "Valuation date for the position exposure."
+        tests:
+          - not_null
+
+      - name: total_position_value
+        description: "Calculated exposure value for the portfolio position."
+        tests:
+          - not_null
+
+  # =========================
+  # DIMENSION TABLE
+  # =========================
+  - name: dim_security
+    description: "Dimension table containing security master information."
+
+    columns:
+
+      - name: security_id
+        description: "Primary key for the security."
+        tests:
+          - unique
+          - not_null
+
+      - name: ticker
+        description: "Security ticker symbol."
+        tests:
+          - not_null
+
+      - name: asset_class
+        description: "Asset classification of the security."
+
+      - name: sector
+        description: "Sector classification for the security."
+
+  # =========================
+  # DIMENSION TABLE
+  # =========================
+  - name: dim_portfolio
+    description: "Dimension table containing portfolio metadata."
+
+    columns:
+
+      - name: portfolio_id
+        description: "Primary key for the portfolio."
+        tests:
+          - unique
+          - not_null
+
+      - name: portfolio_name
+        description: "Name of the portfolio."
+        tests:
+          - not_null
+
+      - name: manager_name
+        description: "Portfolio manager responsible for the fund."
+
+      - name: created_at
+        description: "Timestamp when the portfolio was created."
